@@ -347,7 +347,6 @@ void Copter::update_auto_armed()
  */
 bool Copter::should_log(uint32_t mask)
 {
-    ap.logging_started = logger.logging_started();
     return logger.should_log(mask);
 }
 #endif
@@ -508,7 +507,6 @@ void Copter::allocate_motors(void)
     // upgrade parameters. This must be done after allocating the objects
     convert_pid_parameters();
 #if FRAME_CONFIG == HELI_FRAME
-    convert_tradheli_parameters();
     motors->heli_motors_param_conversions();
 #endif
 
