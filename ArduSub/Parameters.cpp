@@ -59,7 +59,7 @@ const AP_Param::Info Sub::var_info[] = {
     // @User: Advanced
     // @Units: Hz
     // @Range: 0 10
-    // @Increment: .5
+    // @Increment: 0.5
     GSCALAR(throttle_filt,  "PILOT_THR_FILT",     0),
 
     // AP_SerialManager was here
@@ -174,6 +174,15 @@ const AP_Param::Info Sub::var_info[] = {
     // @Increment: 10
     // @User: Standard
     GSCALAR(pilot_speed_dn,     "PILOT_SPEED_DN",   0),
+
+    // @Param: PILOT_SPEED
+    // @DisplayName: Pilot maximum horizontal speed
+    // @Description: The maximum horizontal velocity the pilot may request in cm/s
+    // @Units: cm/s
+    // @Range: 10 500
+    // @Increment: 10
+    // @User: Standard
+    GSCALAR(pilot_speed,     "PILOT_SPEED",   PILOT_SPEED_DEFAULT),
 
     // @Param: PILOT_ACCEL_Z
     // @DisplayName: Pilot vertical acceleration

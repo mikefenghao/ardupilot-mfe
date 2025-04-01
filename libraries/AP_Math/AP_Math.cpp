@@ -98,23 +98,23 @@ static void swap_float(float &f1, float &f2)
 /*
  * linear interpolation based on a variable in a range
  */
-float linear_interpolate(float low_output, float high_output,
-                         float var_value,
-                         float var_low, float var_high)
+float linear_interpolate(float output_low, float output_high,
+                         float input_value,
+                         float input_low, float input_high)
 {
-    if (var_low > var_high) {
+    if (input_low > input_high) {
         // support either polarity
-        swap_float(var_low, var_high);
-        swap_float(low_output, high_output);
+        swap_float(input_low, input_high);
+        swap_float(output_low, output_high);
     }
-    if (var_value <= var_low) {
-        return low_output;
+    if (input_value <= input_low) {
+        return output_low;
     }
-    if (var_value >= var_high) {
-        return high_output;
+    if (input_value >= input_high) {
+        return output_high;
     }
-    float p = (var_value - var_low) / (var_high - var_low);
-    return low_output + p * (high_output - low_output);
+    float p = (input_value - input_low) / (input_high - input_low);
+    return output_low + p * (output_high - output_low);
 }
 
 /* cubic "expo" curve generator
@@ -565,4 +565,16 @@ double uint64_to_double_le(const uint64_t& value)
     // At least it's defined behavior in both c and c++.
     memcpy(&out, &value, sizeof(out));
     return out;
+}
+
+/*
+  get a twos-complement value from the first 'length' bits of a uint32_t
+  With thanks to betaflight
+ */
+int32_t get_twos_complement(uint32_t raw, uint8_t length)
+{
+    if (raw & ((int)1 << (length - 1))) {
+        return ((int32_t)raw) - ((int32_t)1 << length);
+    }
+    return raw;
 }
